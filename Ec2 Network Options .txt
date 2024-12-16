@@ -1,0 +1,89 @@
+---------------------------
+Network Options - Notes
+---------------------------
+
+Overview:
+- Elastic network interfaces (ENI) are logical network components that represent a virtual network card.
+- ENIs enable EC2 instances to communicate with other hosts, resources, and the internet.
+- Security groups are associated with the elastic network interface and control the allowed inbound traffic.
+
+---------------------------
+Elastic Network Interfaces
+---------------------------
+- Two types of elastic network interfaces:
+  1. **Primary ENI**: Created by default when the instance is launched. It cannot be detached or moved from the instance.
+  2. **Secondary ENI**: An additional interface that can be attached to an instance. Multiple secondary ENIs can be used depending on the instance type.
+- You can move a secondary ENI from one instance to another. The network traffic is automatically redirected to the new instance.
+
+---------------------------
+Attributes of an Elastic Network Interface
+---------------------------
+- Primary private IPv4 address (from the VPC’s IPv4 range)
+- Secondary private IPv4 addresses
+- One Elastic IP address (IPv4) per private IPv4 address
+- One public IPv4 address
+- One or more IPv6 addresses
+- One or more security groups
+- MAC address
+- Source/destination check flag
+- Description
+
+---------------------------
+Use Cases for Elastic Network Interfaces
+---------------------------
+1. **Failover**: 
+   - Detach the ENI from a failed instance and attach it to a new instance. This preserves the original IP address, and traffic automatically routes to the new instance.
+2. **Management**: 
+   - Use multiple ENIs for separating traffic. One ENI can be used for administrative traffic and another for workload/business traffic. Security groups can isolate traffic based on port, protocol, or IP address.
+
+---------------------------
+Public IP Address
+---------------------------
+- Instances automatically receive a public IP address when started. This IP is used for external internet connections.
+- When the instance is stopped, the public IP address is released and not reassigned unless the instance is restarted.
+- The behavior of public IP address assignment differs between default and nondefault VPCs:
+  - In a default VPC: A public IP is assigned automatically.
+  - In a nondefault VPC: Public IP assignment depends on subnet settings. By default, instances in nondefault subnets do not receive a public IP.
+
+---------------------------
+Public IP Address Pool Assignments
+---------------------------
+- Public IPs are assigned from a pool of Amazon's public IPv4 addresses.
+- When disassociated from an instance, the public IP is returned to the public IPv4 pool, and it cannot be reused.
+- You cannot manually associate or disassociate a public IP (IPv4) address from an instance.
+
+---------------------------
+Public IP Address Release and Reassignment
+---------------------------
+- The instance's public IP is released when:
+  1. The instance is stopped.
+  2. The instance is terminated.
+- If a persistent public IP is needed, use Elastic IP.
+
+---------------------------
+Elastic IP Address
+---------------------------
+- Elastic IP (EIP) is a static public IPv4 address associated with your AWS account.
+- EIP persists after stopping and starting the instance, unlike an auto-assigned public IP.
+- You can associate an EIP with an EC2 instance via:
+  - Amazon EC2 Console
+  - AWS CLI
+  - AWS Tools for Windows PowerShell
+- Points to remember:
+  - Cannot retain or convert an auto-assigned public IP to an EIP.
+  - Maximum limit: 5 Elastic IPs per Region per AWS account.
+  - Small charge for unused Elastic IPs that are not associated with a running instance.
+
+---------------------------
+Bring Your Own IP (BYOIP)
+---------------------------
+- You can bring part or all of your publicly routable IPv4 or IPv6 address range from your on-premises network to your AWS account.
+- After bringing the address range to AWS, it is managed as an address pool in your account.
+- AWS advertises your IP range on the internet by default.
+
+---------------------------
+IPv6 Address
+---------------------------
+- Optionally associate an IPv6 CIDR block with your VPC and subnets.
+- IPv6 CIDR blocks are automatically assigned from Amazon’s pool. You cannot choose the range yourself.
+- Currently, you cannot remove the default IPv4 address and use only IPv6.

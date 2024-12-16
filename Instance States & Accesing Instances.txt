@@ -1,0 +1,83 @@
+Managing Instance States  
+
+------------------------------------------------------------  
+INSTANCE STATES IN AMAZON EC2  
+------------------------------------------------------------  
+- EC2 instances transition through various states during their lifecycle. Understanding these states helps in managing workloads effectively.  
+- An EC2 instance's state reflects its current activity, from being launched to being terminated.  
+- Example: After launching an EC2 instance, it goes through the following states:  
+  1. **Pending**: The instance is being launched.  
+  2. **Running**: The instance is active and processing.  
+  3. **Stopping**: The instance is being stopped.  
+  4. **Stopped**: The instance is not running but remains available for later use.  
+  5. **Terminated**: The instance has been deleted and cannot be restarted.  
+
+------------------------------------------------------------  
+LIFE CYCLE OF AN EC2 INSTANCE  
+------------------------------------------------------------  
+1. **Launch**: Instance starts in the **pending** state while AWS prepares it.  
+2. **Running**: Instance enters the **running** state, where it can process tasks.  
+3. **Stop**: Instance can be stopped to save resources while maintaining data.  
+4. **Terminate**: Instance can be terminated, leading to its removal from AWS.  
+
+------------------------------------------------------------  
+ADDITIONAL INSTANCE STATES  
+------------------------------------------------------------  
+1. **Hibernate**: Saves the instance state to disk and powers off. The instance can be restarted later, and it resumes from where it left off.  
+2. **Reboot**: A scheduled restart event for maintenance purposes.  
+3. **Retire**: AWS initiates retirement of an instance for hardware reasons or if the instance is no longer supported.  
+
+------------------------------------------------------------  
+IMPACT OF INSTANCE STATES ON STORAGE VOLUMES  
+------------------------------------------------------------  
+- **Running** and **Stopped** states preserve data on attached volumes.  
+- **Terminated** instances result in the deletion of data unless backups are created.  
+- Ensure data compliance by confirming the instance's state before stopping or terminating it.  
+
+------------------------------------------------------------  
+CONNECTING TO EC2 INSTANCES  
+------------------------------------------------------------  
+- John needs to connect to EC2 instances to install software and perform updates. He can connect to instances based on the operating system of both the instance and his local machine.  
+- Connection methods differ for **Linux** and **Windows** instances.  
+
+------------------------------------------------------------  
+CONNECTING TO A LINUX INSTANCE  
+------------------------------------------------------------  
+- **SSH** (Secure Shell) is used for secure, encrypted connections to Linux-based instances.  
+- SSH uses a key pair (public and private keys) for authentication.  
+- SSH tools like PuTTY, WinSCP, or native OpenSSH can be used for the connection.  
+- Ensure the security group allows inbound traffic on port 22 for SSH.  
+
+------------------------------------------------------------  
+CONNECTING TO A WINDOWS INSTANCE  
+------------------------------------------------------------  
+- Windows instances use **RDP** (Remote Desktop Protocol) for access.  
+- An RDP connection is established using a username and password, typically after obtaining the password from the EC2 console.  
+
+------------------------------------------------------------  
+SECURITY GROUPS AND ACCESS CONTROL  
+------------------------------------------------------------  
+- Security groups control inbound and outbound traffic for instances.  
+- To connect via SSH, ensure port 22 is open in the security group for Linux instances.  
+- For RDP, ensure port 3389 is open for Windows instances.  
+- Security groups are stateful and automatically apply changes to instances.  
+
+------------------------------------------------------------  
+AMAZON EC2 INSTANCE CONNECT  
+------------------------------------------------------------  
+- **EC2 Instance Connect** allows secure SSH access without managing traditional key pairs.  
+- SSH keys are pushed to instance metadata temporarily for one-time use.  
+- EC2 Instance Connect can be used through the AWS Management Console or AWS CLI.  
+- Connection requests are logged in AWS CloudTrail for auditing purposes.  
+
+------------------------------------------------------------  
+ACCESSING EC2 USING SESSION MANAGER  
+------------------------------------------------------------  
+- **AWS Systems Manager Session Manager** enables secure instance management without opening inbound ports or using SSH keys.  
+- You can manage instances directly via a browser-based shell or AWS CLI.  
+- **Benefits of Session Manager**:  
+  1. Centralized IAM-based access control.  
+  2. No need for bastion hosts or open ports.  
+  3. One-click access to instances.  
+  4. Cross-platform support (Windows, Linux, macOS).  
+  5. Logging and auditing of session activities.  

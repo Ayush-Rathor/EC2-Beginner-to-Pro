@@ -1,0 +1,76 @@
+---------------------------
+Working with AMIs - Notes
+---------------------------
+
+Overview:
+- AMIs (Amazon Machine Images) are used to create EC2 instances, and they can be customized with specific software configurations for various use cases.
+
+What is an AMI (Amazon Machine Image)?
+- AMI: A template containing the software configuration needed to launch an EC2 instance (OS, pre-installed software, configuration files).
+- Types of AMIs:
+  - AWS-provided AMIs
+  - Community-contributed AMIs
+  - Paid AMIs from AWS Marketplace
+  - Custom-built AMIs
+
+AMI Use Cases:
+- AMIs are required to launch EC2 instances, and a single AMI can be used to launch multiple identical instances.
+
+---------------------------
+Boot Modes for AMIs
+---------------------------
+- Boot Mode: Defines how the platform initializes the OS during the boot process.
+  - UEFI: Modern boot mode used by Graviton instances.
+  - Legacy BIOS: Traditional boot mode for Intel and AMD instances.
+  - The AMI boot mode is optional, and instances will use the default boot mode if no specific one is set.
+
+---------------------------
+Shared and Public AMIs
+---------------------------
+- Shared AMI: An AMI made available for others to use. It can be modified and reused to create new AMIs.
+- Public AMIs: Available for everyone, but caution is needed when using them. It’s important to ensure the AMI comes from a trusted source. Amazon-owned public images are identified as “amazon” in the account field.
+
+Considerations before Sharing AMIs Publicly:
+1. Regional Resource: AMIs are region-specific.
+2. AMIs That Can’t Be Public: Certain AMIs are restricted from being shared publicly.
+3. Sensitive Data: Avoid including sensitive information in AMIs.
+4. Deprecation: Public AMIs may become outdated over time.
+5. Billing: Public AMIs may have separate billing for usage.
+
+---------------------------
+Paid AMIs
+---------------------------
+- Paid AMIs: Available for purchase on the AWS Marketplace.
+  - Billing Structure: Charges for paid AMIs are separate from EC2 instance billing and may include additional taxes.
+  - Launch Permissions: AMI owners control the launch permissions, including:
+    - Public: Accessible by all AWS accounts.
+    - Explicit: Granted to specific AWS accounts or organizations.
+    - Implicit: The AMI owner can launch instances from their own AMI.
+
+---------------------------
+Gold AMIs
+---------------------------
+- Gold Image/AMI: A pre-configured AMI that meets internal IT standards (security, compliance, etc.), used as a base for launching multiple identical instances.
+- These gold images need to be updated regularly to ensure they remain secure and compliant.
+
+---------------------------
+EC2 Image Builder
+---------------------------
+- EC2 Image Builder helps automate the creation, testing, and deployment of AMIs and container images.
+  - Automated Updates: Automatically updates AMIs when new software updates are released.
+  - Security & Compliance: Integrates with AWS Organizations and supports sharing AMIs across accounts.
+  - No Cost: EC2 Image Builder is free to use.
+
+---------------------------
+Considerations for Sharing AMIs Internally
+---------------------------
+- No Sharing Limits: There are no limits on sharing AMIs internally.
+- Copying and Usage: Ensure proper controls for copying and usage of AMIs across accounts.
+- Tags, Encryption, and Keys: Proper tagging, encryption, and key management are essential.
+- Regional Resources: AMIs are region-specific.
+- Billing: Understand the costs when sharing AMIs within an organization.
+
+---------------------------
+Next Step
+---------------------------
+- The next step would be to explore storage options for instances launched with these AMIs.

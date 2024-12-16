@@ -1,0 +1,77 @@
+---------------------------
+Designing for Resilience - Notes
+---------------------------
+
+Overview:
+- Resilience is the ability of a workload to recover from infrastructure or service disruptions. It includes:
+  1. Time to recover: How quickly the system is restored for users.
+  2. Time to restore data: How quickly data is recovered.
+
+AWS Well-Architected Framework:
+- Focuses on building secure, high-performing, resilient, and efficient infrastructures.
+- Resilience falls under the Reliability Pillar of the AWS Well-Architected Framework.
+- AWS global infrastructure provides resilience with AWS Regions and Availability Zones (AZs).
+  - Regions provide multiple isolated AZs, which are connected with low-latency, high-throughput, and redundant networking.
+
+Amazon EC2 Resilience Features:
+- Copying AMIs and EBS snapshots across Regions.
+- Automating EBS-backed AMIs and EBS snapshots using Amazon Data Lifecycle Manager.
+- Auto Scaling: Maintains EC2 instance health and availability.
+- Elastic Load Balancing: Distributes incoming traffic across multiple EC2 instances.
+
+Instance Settings for Resilience:
+- Modify the following settings when building EC2 instances to improve resilience and recoverability:
+  1. Termination Setting: Ensures that EC2 instances are managed properly during termination.
+  2. Shutdown Behavior: Controls the behavior of instances when they are stopped or terminated.
+  3. Modify Termination Policy: Sets rules to manage instance termination and prevent accidental deletion.
+  4. Enable Termination Protection: Protects instances from being terminated accidentally.
+  5. Simplified Automatic Recovery: Helps automatically recover instances from failure.
+
+Planning for Failures:
+- In addition to instance and AMI settings, a robust backup and recovery strategy is essential to ensure an environment stays up and functional even during failures.
+
+---------------------------
+Designing for Availability - Notes
+---------------------------
+
+Overview:
+- Availability refers to how long a workload or system is up and usable for customers or users.
+- The AWS Well-Architected Framework's reliability pillar provides guidance on building highly available architectures.
+- Three key reliability design principles to ensure high availability:
+  1. Automatically recover from failure.
+  2. Scale horizontally to increase aggregate workload availability.
+  3. Stop guessing capacity.
+
+Availability Zones:
+- Amazon EC2 allows instances to be spread across Availability Zones (AZs) to protect against failures.
+- Distribute instances equally across AZs to ensure high availability and minimize impact during failures.
+- Example: For 12 instances and 3 AZs, distribute 4 instances per zone to avoid disruption if one zone fails.
+
+Amazon EC2 Auto Scaling:
+- EC2 Auto Scaling manages the number of EC2 instances needed for an application.
+- Scaling can be dynamic or predictive:
+  1. Dynamic Scaling: Automatically scales based on metrics.
+  2. Predictive Scaling: Uses machine learning to predict demand and adjust capacity accordingly.
+- Auto Scaling Groups: Collections of EC2 instances that automatically scale based on demand.
+  - Set minimum, desired, and maximum instances to control capacity.
+
+Elastic Load Balancing (ELB):
+- Elastic Load Balancing (ELB) distributes incoming traffic across multiple targets (e.g., EC2 instances) across AZs.
+- Types of ELBs:
+  1. Application Load Balancer: For HTTP traffic.
+  2. Network Load Balancer: For TCP/UDP traffic, low-latency applications.
+  3. Gateway Load Balancer: For third-party virtual appliances.
+- ELB improves availability by routing traffic to healthy instances and removing unhealthy ones.
+
+State Information and Caching:
+- Caching: Stores transient data (e.g., shopping cart, game leaderboard) to reduce retrieval time.
+- Caching improves user experience by providing quick access to state information without relying on instance availability.
+- State information should be stored outside EC2 instances for seamless failover and data consistency.
+
+Amazon EC2 Service Quotas:
+- Service Quotas protect against excessive provisioning and malicious actions.
+- EC2 service limits include:
+  - vCPUs: Can request a limit increase.
+  - Bandwidth: Based on instance type/size.
+  - Elastic IPs: Soft limit of five per account.
+  - API Call Limits: Commands to describe or modify EC2 instances can be throttled.

@@ -1,0 +1,75 @@
+Amazon EC2 Basics  
+By Robert Robinson  
+
+------------------------------------------------------------
+WHAT IS AMAZON EC2?  
+------------------------------------------------------------
+- Amazon EC2 provides 500+ instance types.  
+- Allows configuration of virtual hardware to meet workload needs.  
+
+------------------------------------------------------------
+KEY CONCEPTS  
+------------------------------------------------------------
+1. Instance  
+   - A virtual machine (VM) running on the AWS Cloud.  
+
+2. Instance Type  
+   - A combination of virtual hardware (CPU, memory, storage).  
+
+3. Instance Families  
+   - Groups of instance types optimized for specific use cases.  
+
+4. vCPU (Virtual CPU)  
+   - Represents a CPU thread.  
+   - Example: 2 cores x 2 threads each = 4 vCPUs.  
+
+------------------------------------------------------------
+EC2 INSTANCE FAMILIES  
+------------------------------------------------------------
+
+1. General Purpose  
+   - ⚙️ Balanced compute, memory, and networking.  
+   - 📌 Use Cases: Web servers, dev/test environments, code repositories.  
+   - 🌟 Example: t4g.nano for cost-effective workloads with bursting.  
+
+2. Compute Optimized  
+   - 💻 High-performance processors for compute-intensive tasks.  
+   - 📌 Use Cases: HPC, batch processing, gaming servers, ML inference.  
+   - 🌟 Example: c5.xlarge for HPC and media transcoding.  
+
+3. Memory Optimized  
+   - 🧠 For applications requiring large memory and fast processing.  
+   - 📌 Use Cases: Databases (MySQL, MongoDB), big data, SAP HANA.  
+   - 🌟 Example: r5g.xlarge for memory-intensive workloads like SAP HANA.  
+
+4. Storage Optimized  
+   - 💾 High sequential read/write access to large datasets.  
+   - 📌 Use Cases: Data warehousing, Hadoop, NoSQL databases, logging.  
+   - 🌟 Example: i3.large for data processing and analytics.  
+
+5. Accelerated Computing  
+   - 🚀 Hardware accelerators (GPUs, FPGAs) for parallel processing.  
+   - 📌 Use Cases: Video rendering, AI/ML training, big data analytics.  
+   - 🌟 Example: p3.2xlarge with GPUs for deep learning and image processing.  
+
+------------------------------------------------------------
+INSTANCE NAMING  
+------------------------------------------------------------
+- Family: Workload type (e.g., t for general purpose, c for compute).  
+- Generation: Hardware version (e.g., 5, 6g).  
+- Size: Resource allocation (e.g., nano, xlarge).  
+
+------------------------------------------------------------
+INSTANCE SIZING  
+------------------------------------------------------------
+- Sizes range from nano to 32xlarge.  
+  - Example:  
+    - t4g.nano: 2 vCPUs, 0.5 GiB memory (minimal resources).  
+    - r6g.4xlarge: 16 vCPUs, 128 GiB memory (maximum resources).  
+
+------------------------------------------------------------
+KEY TAKEAWAYS  
+------------------------------------------------------------
+- Choose instances based on workload and cost efficiency.  
+- EC2 provides flexibility to test and scale configurations.  
+- Optimize performance by trying different instance types and sizes.  

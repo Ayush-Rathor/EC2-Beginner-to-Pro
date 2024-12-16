@@ -1,0 +1,34 @@
+Recovering from Failures - Notes
+
+Overview:
+- Recovery planning is essential to ensure continuity during service interruptions, disk failures, natural disasters, or unforeseen events.
+- How to prepare for and recover from these interruptions must be planned and tested regularly.
+- The AWS Shared Responsibility Model defines what AWS is responsible for (infrastructure, hardware, software, networking, and facilities) and what the customer is responsible for (data, application, and backup recovery).
+
+Recovery Options:
+- Multiple recovery options exist depending on the needs of the workload.
+- Considerations for workloads that don’t require EC2 Auto Scaling or Load Balancers include the type of storage service and recovery options suitable for service level agreements (SLAs).
+  
+Instance Recovery:
+1. Status Checks for EC2 Instances:
+   - AWS provides status checks to monitor the health of EC2 instances and determine when intervention is needed.
+  
+2. Recovering EC2 Instances:
+   - If an EC2 instance experiences failure, automatic recovery can be triggered, or manual intervention can be applied based on status checks.
+  
+3. Simplified Automatic Recovery:
+   - Automatic recovery options can be configured for EC2 instances, minimizing downtime and ensuring faster recovery.
+  
+Backup and Recovery of Instances:
+- To recover a fully functional EC2 instance, backup all essential components, including:
+  1. EBS Snapshots: Provides point-in-time copies of the data volume.
+  2. AMI (Amazon Machine Image): Contains the operating system, software, and configurations of the instance. It’s crucial to update the AMI to include necessary software and patches.
+  3. Storage Connections: If using Amazon EFS and S3, document mount points and bucket names for easy recovery.
+  
+- AWS Backup:
+  - Use AWS Backup for a comprehensive backup solution to back up EC2 instances and attached EBS volumes.
+  - AWS Backup ensures that not only the data but also the instance parameters (e.g., instance type, VPC, security groups, IAM roles) are captured during backup.
+  
+- Restoring Instances with AWS Backup:
+  - AWS Backup enables you to restore full EC2 instances, including all EBS volumes and parameters, using the console, API, or CLI.
+  - The restoration process recreates the instance with the same configuration, ensuring consistency across recovery.

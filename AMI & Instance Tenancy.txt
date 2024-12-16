@@ -1,0 +1,143 @@
+Introduction to Amazon Machine Images (AMIs)  
+
+------------------------------------------------------------  
+WHAT IS AN AMAZON MACHINE IMAGE (AMI)?  
+------------------------------------------------------------  
+- An AMI is a template containing the software configuration to launch EC2 instances.  
+- Includes an operating system, applications, and tools.  
+- AMIs are mandatory for launching EC2 instances.  
+- A single AMI can spawn one or multiple instances with identical configurations.  
+
+------------------------------------------------------------  
+AMIS COMPONENTS  
+------------------------------------------------------------  
+1. Storage  
+   - Amazon EBS-backed AMIs: Contain snapshots of Amazon EBS volumes.  
+   - Instance store-backed AMIs: Contain a template for the root volume.  
+   - Examples: Operating system, applications, or application servers.  
+
+2. Permissions  
+   - Defines who can access and use the AMI.  
+
+3. Mapping  
+   - Determines how the AMI maps to instance storage and configurations.  
+
+------------------------------------------------------------  
+EC2 INSTANCE COMPONENTS  
+------------------------------------------------------------  
+1. Physical Hardware  
+   - Includes compute, storage, and networking.  
+
+2. Hypervisor  
+   - Virtualization software that manages physical resources and allocates them to instances.  
+   - Two types of hypervisors in AWS:  
+     - Original Hypervisor  
+     - AWS Nitro Hypervisor (part of the AWS Nitro System).  
+
+3. AWS Nitro System  
+   - A combination of dedicated hardware and lightweight hypervisor.  
+   - Optimizes instance performance and enhances security.  
+   - Offloads management and I/O operations to dedicated hardware for better resource utilization.  
+   - Nearly all server resources are delivered to instances, reducing costs and increasing performance.  
+
+4. Elastic Network Interface  
+   - Acts like a virtual network card for the instance.  
+   - Allows instances to communicate with other resources, servers, or the internet.  
+
+------------------------------------------------------------  
+BARE-METAL INSTANCES  
+------------------------------------------------------------  
+- Bare-metal instances are physical servers without virtualization software (hypervisor).  
+- Key Benefits:  
+  - Direct access to hardware features.  
+  - Ideal for workloads requiring nonvirtualized environments or specific licensing.  
+  - Lowest latency due to absence of hypervisor overhead.  
+
+- Use Cases:  
+  - Deep performance analysis.  
+  - Specialized workloads needing bare-metal access.  
+  - Legacy applications or licensing-restricted Tier 1 apps.  
+
+------------------------------------------------------------  
+KEY TAKEAWAYS  
+------------------------------------------------------------  
+- AMIs define the starting configuration for launching EC2 instances.  
+- EC2 instances utilize physical hardware, virtualization (via hypervisor), and networking components.  
+- AWS Nitro System enhances resource efficiency and performance.  
+- Bare-metal instances offer direct hardware access with minimal latency.  
+
+
+Amazon EC2 Instance Tenancy  
+
+------------------------------------------------------------  
+TENANCY OVERVIEW  
+------------------------------------------------------------  
+- Tenancy defines how EC2 instances are distributed across physical hardware in AWS.  
+- It impacts pricing and availability.  
+- There are three main tenancy options in EC2:  
+
+1. Shared (Default)  
+   - Multiple AWS accounts share the same physical hardware.  
+   - The most economical choice.  
+   - Supports Spot Instances and burstable instance types.  
+   - Does not support Bring Your Own License (BYOL) models.  
+
+2. Dedicated Instance  
+   - Instances run on hardware dedicated to a single customer.  
+   - Can share the hardware with other instances from the same AWS account that are not dedicated.  
+   - Provides isolation but lacks visibility and control over instance placement.  
+
+3. Dedicated Host  
+   - Physical server with EC2 instance capacity fully dedicated to your use.  
+   - Allows control over instance placement and visibility into the hardware.  
+   - Suitable for organizations with compliance, security, or licensing requirements.  
+   - Supports the BYOL model for certain software licenses.  
+
+------------------------------------------------------------  
+SHARED TENANCY  
+------------------------------------------------------------  
+- Default option for EC2 instances.  
+- Instances run on shared hardware with other AWS customer accounts.  
+- Instances are isolated and secured but share the underlying physical resources.  
+- Suitable for cost-sensitive use cases but does not support BYOL.  
+
+------------------------------------------------------------  
+DEDICATED HOST  
+------------------------------------------------------------  
+- A physical server fully dedicated to a single AWS customer.  
+- Useful for scenarios requiring compliance or licensing flexibility.  
+- Provides visibility and control over instance placement.  
+- Allows for use of per-socket, per-core, or per-VM software licenses (BYOL).  
+- Additional cost for renting the physical server.  
+
+------------------------------------------------------------  
+DEDICATED INSTANCES  
+------------------------------------------------------------  
+- Run on hardware dedicated to a single customer, but the hardware can be shared with other instances within the same AWS account.  
+- Offers isolation but lacks control over hardware and instance placement.  
+- The pricing consists of two components:  
+  1. Hourly per-instance usage fee.  
+  2. A dedicated per-Region fee (charged once per hour).  
+
+------------------------------------------------------------  
+KEY DIFFERENCES BETWEEN DEDICATED INSTANCES AND DEDICATED HOSTS  
+------------------------------------------------------------  
+| Characteristic                      | Dedicated Host       | Dedicated Instance      |  
+|-------------------------------------|----------------------|-------------------------|  
+| Supports dedicated physical servers | Yes                  | Yes                     |  
+| Per-instance billing                | No                   | Yes                     |  
+| Per-host billing                    | Yes                  | No                      |  
+| Visibility of hardware resources    | Yes                  | No                      |  
+| Affinity between host and instance  | Yes                  | No                      |  
+| Bring Your Own License (BYOL)       | Yes                  | No                      |  
+| Instance placement control          | Ye                   | No                      |  
+| Automatic instance placement        | No                   | Yes                     |  
+
+------------------------------------------------------------  
+SUMMARY  
+------------------------------------------------------------  
+- Tenancy defines the allocation of EC2 instances to physical hardware.  
+- Three types: Shared, Dedicated Instances, and Dedicated Hosts.  
+- Dedicated Hosts offer greater control and visibility over the hardware, while Dedicated Instances provide some isolation without control
+over placement.  
+- Shared tenancy is the most economical but does not support BYOL.  

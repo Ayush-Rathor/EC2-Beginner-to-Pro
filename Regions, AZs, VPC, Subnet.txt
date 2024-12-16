@@ -1,0 +1,98 @@
+AWS Global Infrastructure  
+
+------------------------------------------------------------  
+GLOBAL INFRASTRUCTURE OVERVIEW  
+------------------------------------------------------------  
+- AWS has deployed infrastructure in specific global locations with the highest demand for cloud services.  
+- This allows John to potentially launch instances in multiple global locations.  
+- The AWS Global Infrastructure page provides a map of available Regions and their corresponding Availability Zones (AZs).  
+
+------------------------------------------------------------  
+DEFINING AN AWS REGION  
+------------------------------------------------------------  
+- A Region is a geographic area with AWS physical infrastructure and data centers.  
+- Each Region consists of multiple Availability Zones (AZs), which are isolated but connected by low-latency, high-bandwidth links.  
+- AWS Regions are designed to provide high reliability and durability through redundancy.  
+- Data in a Region stays within that Region, complying with local data sovereignty laws and compliance requirements.  
+- Example: If data is stored in the Frankfurt Region, it stays in Frankfurt unless explicitly moved.  
+
+------------------------------------------------------------  
+SELECTING A REGION  
+------------------------------------------------------------  
+When choosing a Region, consider these four factors:  
+1. Compliance with data governance and legal requirements  
+2. Proximity to your customers  
+3. Available services within the Region  
+4. Pricing per Region  
+
+------------------------------------------------------------  
+AVAILABILITY ZONES  
+------------------------------------------------------------  
+- An Availability Zone (AZ) is a group of data centers within a Region.  
+- AZs are tens of miles apart to minimize the risk of multiple zones being affected by a disaster.  
+- Each AZ has independent power, cooling, and physical security.  
+- Applications requiring high availability can use multiple AZs for fault tolerance and redundancy.  
+
+------------------------------------------------------------  
+VIRTUAL PRIVATE CLOUD (VPC)  
+------------------------------------------------------------  
+- A VPC is a private virtual network dedicated to an AWS account, logically isolated from others.  
+- Within the VPC, you can launch AWS resources like EC2 instances in subnets.  
+- VPCs are software-based and do not map directly to physical infrastructure.  
+- A VPC provides complete control over routing, security, and services running within it.  
+- Example: Each apartment in an apartment building has its own private network and security controls.  
+
+------------------------------------------------------------  
+VPC TYPES  
+------------------------------------------------------------  
+1. Default VPC  
+   - Automatically created in each AWS Region.  
+   - Includes a public subnet in each AZ and an internet gateway.  
+   - Suitable for quickly launching EC2 instances and basic applications.  
+   - Can be modified to fit specific needs.  
+
+2. Nondefault VPC  
+   - Created manually within an AWS account.  
+   - Isolated by default, with no inbound or outbound access unless explicitly configured.  
+   - Can have default or dedicated tenancy options.  
+
+------------------------------------------------------------  
+AWS NETWORKING  
+------------------------------------------------------------  
+- AWS networking provides flexibility with services for routing and security, differing slightly from traditional data center networking.  
+- John reviews topics like TCP/IP subnetting and CIDR notation.  
+
+------------------------------------------------------------  
+SUBNETS  
+------------------------------------------------------------  
+- A subnet is a smaller network inside a larger network, providing efficiency by reducing the distance data must travel.  
+- Subnets are contained within a single Availability Zone.  
+- Public subnets are used for internet-facing resources, while private subnets are for internal resources.  
+
+------------------------------------------------------------  
+SUBNETTING DETAILS  
+------------------------------------------------------------  
+- Subnetting is the process of dividing a network into smaller sections. This is done by borrowing bits from the host portion of an IP address.  
+- A subnet mask is a 32-bit address used to separate the network portion from the host portion of an IP address.  
+- The subnet mask for a network determines how many bits are used for the network and how many are used for the host.  
+- Example of an IP address 10.0.1.4/24:  
+  - The network is 10.0.1.x and .4 is the host.  
+  - The subnet mask is /24 (255.255.255.0), which means the first 24 bits are for the network.  
+
+- Example of an IP address 10.0.1.4/16:  
+  - The network portion is 10.0, and the host portion is .1.4.  
+  - The subnet mask is /16 (255.255.0.0), meaning the first 16 bits are for the network.  
+
+- Example of an IP address 10.0.1.4/26:  
+  - The network portion is 10.0.1, and the host portion is .4 (or any number between .1 and .64).  
+  - The subnet mask is /26 (255.255.255.192), meaning the first 26 bits are for the network.  
+
+------------------------------------------------------------  
+KEY NETWORKING COMPONENTS  
+------------------------------------------------------------  
+1. CIDR Blocks: A range of IP addresses for VPCs, typically in IPv4, with optional support for IPv6.  
+2. Subnetting: Dividing the CIDR block into smaller networks (subnets).  
+3. Reserved IPs: Five IP addresses in each subnet are reserved for AWS use.  
+4. Network Access Control Lists (NACLs): Stateless filtering for network traffic to/from subnets.  
+5. Security Groups: Stateful firewalls that control traffic to/from instances within subnets.  
+

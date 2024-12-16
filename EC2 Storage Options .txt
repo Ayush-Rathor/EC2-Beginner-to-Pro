@@ -1,0 +1,98 @@
+---------------------------
+Amazon EC2 Storage Options - Notes
+---------------------------
+
+Overview:
+- Amazon EC2 offers flexible, cost-effective, and easy-to-use data storage options for instances.
+- Storage options vary in performance and durability and can be used independently or together, depending on requirements.
+
+---------------------------
+Root Device Storage
+---------------------------
+- The root device volume is where the image used to boot the EC2 instance is stored.
+- Two types of root devices:
+  - Instance store-backed AMI
+  - Amazon EBS-backed AMI
+- Root device type is crucial because each has different capabilities for managing data.
+
+---------------------------
+Instance Store-backed Instances
+---------------------------
+- Instance store volumes are temporary storage attached to the instance.
+- Data in the instance store persists only during the lifetime of the instance.
+- Instance store data is lost in the following cases:
+  - The underlying disk drive fails
+  - The instance stops or terminates
+  - The instance hibernates
+- Not suitable for long-term data storage.
+- Cannot detach instance store volumes and attach them to a different instance.
+
+---------------------------
+Amazon EBS-backed Instances
+---------------------------
+- Amazon Elastic Block Store (EBS) provides persistent block-level storage for EC2 instances.
+- Benefits:
+  - Flexible in size, performance, and durability.
+  - Can modify EBS volume size and IOPS dynamically without downtime.
+  - EBS volumes are persistent; data remains intact even when the instance is stopped or terminated (unless specified otherwise).
+
+---------------------------
+Block Device Mapping
+---------------------------
+- Local storage volumes can be configured via block device mapping during launch.
+- These volumes are available for mounting and use, but if the instance fails, or is stopped or terminated, the data is lost.
+
+---------------------------
+EBS Volume Types and Considerations
+---------------------------
+1. Primary Storage:
+   - EBS is commonly used for primary storage of instances due to its persistence.
+2. Multiple Volume Types:
+   - EBS offers several volume types, each optimized for different use cases.
+3. Multiple Volumes Per Instance:
+   - You can attach multiple EBS volumes to a single instance.
+4. Data Availability:
+   - EBS provides high data availability and reliability.
+5. Data Persistence:
+   - Data on EBS persists independently of the instance state.
+6. Data Encryption:
+   - EBS supports encryption to secure data in transit and at rest.
+7. Flexibility:
+   - EBS allows you to dynamically adjust the volume size and performance.
+8. Snapshots:
+   - EBS volumes support snapshots, which are backups of the volume's data.
+
+---------------------------
+Boot Times Differences
+---------------------------
+- Instances launched from EBS-backed AMIs typically boot faster than those from instance store-backed AMIs.
+- With EBS, only the necessary boot parts are retrieved during launch, but instance performance may be slower initially while the rest of the data is retrieved.
+- When an instance stops and restarts, it launches quickly from the stored EBS volume.
+
+---------------------------
+EBS vs Instance Store-backed AMIs
+---------------------------
+Characteristic         | Amazon EBS-backed AMI                                     | Amazon Instance Store-backed AMI
+-----------------------|-----------------------------------------------------------|-------------------------------------------------
+Boot time              | Usually < 1 minute                                        | Usually < 5 minutes
+Root device size limit | 64 TiB                                                    | 10 GiB
+Root device volume     | EBS volume                                                | Instance store volume
+Data persistence       | Data persists (unless deleted)                            | Data persists only during the instance life
+Modifications          | Instance type, kernel, RAM disk, user data can be changed | Fixed for the life of the instance
+Charges                | Charged for instance and EBS usage                        | Charged for instance usage and storing AMI in S3
+AMI creation           | Single command                                            | Requires AMI tools installation
+Stopped state          | Can be stopped while preserving root volume               | Cannot be stopped, instance is either running or terminated
+
+---------------------------
+Cloud File Storage Options
+---------------------------
+- Cloud file storage provides access to data through shared file systems.
+- Useful for workloads that require shared access to files across multiple instances.
+
+Types of Cloud File Storage:
+1. Amazon S3:
+   - Object storage that offers high scalability and durability.
+2. Amazon EFS:
+   - Managed NFS (Network File System) for scalable file storage.
+3. Amazon FSx:
+   - Managed Windows File Server or Lustre for high-performance file storage.
